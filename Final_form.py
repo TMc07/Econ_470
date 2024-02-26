@@ -14,10 +14,11 @@ import warnings
 # Suppress FutureWarnings from NumPy
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
+#This was to save graphs into a single folder on my end 
 directory_path = r"C:\Users\tymcc\OneDrive\Desktop\470_Project\Mexico_Project\Graphs"
 
 # Clone the repository
-repo_url = "https://github.com/TMc07/Econ_470.git"
+repo_url = "https://github.com/TMc07/Exam_1.git"
 
 # Define the path to the CSV files
 local_dir = "Econ_470"  # Existing directory with the cloned repository
