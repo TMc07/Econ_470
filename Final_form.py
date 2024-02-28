@@ -256,19 +256,24 @@ def save_medica_prop_cumulative_distribution(df, output_dir):
     # Setting seaborn style
     sns.set(style="whitegrid")
 
-    # Separate data for 'assigned_to_oportunidades' and 'assigned_to_seguro_popular'
+    # Separate data for 'assigned_to_oportunidades', 'assigned_to_seguro_popular', and the whole sample
     oportunidades_data = df[df['assigned_to_oportunidades']]['ingtot_log']
     seguro_popular_data = df[df['assigned_to_seguro_popular']]['ingtot_log']
+    whole_sample_data = df['ingtot_log']  # Whole sample data
 
     # Plotting the cumulative distribution
     plt.figure(figsize=(10, 6))
     sns.ecdfplot(oportunidades_data, label='Oportunidades', color='blue')
     sns.ecdfplot(seguro_popular_data, label='Seguro Popular', color='red')
+    sns.ecdfplot(whole_sample_data, label='Whole Sample', color='green')  # Plot for whole sample
     plt.xlabel('Medical Proportion (ingtot_log)')
     plt.ylabel('Cumulative Distribution')
     plt.title('Cumulative Distribution of Medical Proportion')
     plt.legend()
-
+    
+    # Limit x-axis to stop at 9.413
+    plt.xlim(right=9.413)
+    plt.ylim(top=0.15)
 
     # Save the plot to the specified directory
     plt.savefig(f"{output_dir}/Medical_Proportion_Cumulative_Distribution.png")
@@ -278,3 +283,29 @@ def save_medica_prop_cumulative_distribution(df, output_dir):
 # Assuming 'df' is your DataFrame and 'directory_path' is the path to the directory where you want to save the plot
 save_medica_prop_cumulative_distribution(df, directory_path)
 
+def save_medica_prop_full_distribution(df, output_dir):
+    # Setting seaborn style
+    sns.set(style="whitegrid")
+
+    # Separate data for 'assigned_to_oportunidades', 'assigned_to_seguro_popular', and the whole sample
+    oportunidades_data = df[df['assigned_to_oportunidades']]['ingtot_log']
+    seguro_popular_data = df[df['assigned_to_seguro_popular']]['ingtot_log']
+    whole_sample_data = df['ingtot_log']  # Whole sample data
+
+    # Plotting the cumulative distribution
+    plt.figure(figsize=(10, 6))
+    sns.ecdfplot(oportunidades_data, label='Oportunidades', color='blue')
+    sns.ecdfplot(seguro_popular_data, label='Seguro Popular', color='red')
+    sns.ecdfplot(whole_sample_data, label='Whole Sample', color='green')  # Plot for whole sample
+    plt.xlabel('Medical Proportion (ingtot_log)')
+    plt.ylabel('Cumulative Distribution')
+    plt.title('Full Cumulative Distribution of Medical Proportion')
+    plt.legend()
+
+    # Save the plot to the specified directory
+    plt.savefig(f"{output_dir}/Full_Medical_Proportion_Cumulative_Distribution.png")
+    plt.close()
+
+# Usage
+# Assuming 'df' is your DataFrame and 'directory_path' is the path to the directory where you want to save the plot
+save_medica_prop_full_distribution(df, directory_path)
