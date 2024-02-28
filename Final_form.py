@@ -136,6 +136,18 @@ linear_result = linear_model.fit()
 print("\nLinear Regression for Outcome:\n")
 print(linear_result.summary())
 
+# Now, incorporate the propensity score into the logistic regression for treatment
+logit_model_with_ps = sm.Logit(df_standardized['treatment'], sm.add_constant(df_standardized[['propensity_score'] + covariates]))
+logit_result_with_ps = logit_model_with_ps.fit()
+print("\nLogistic Regression for Treatment with Propensity Score:\n")
+print(logit_result_with_ps.summary())
+
+# Now, incorporate the propensity score into the linear regression for outcome
+linear_model_with_ps = sm.OLS(df_standardized['ingtot'], sm.add_constant(df_standardized[['propensity_score'] + covariates + ['treatment']]))
+linear_result_with_ps = linear_model_with_ps.fit()
+print("\nLinear Regression for Outcome with Propensity Score:\n")
+print(linear_result_with_ps.summary())
+
 def save_propensity_score_plots(df, treatment, output_dir):
     # Set style for seaborn
     sns.set(style="whitegrid")
